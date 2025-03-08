@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Tareas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .completed {
+            color: green;
+        }
+        .pending {
+            color: red;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .delete-btn {
+            background-color: transparent;
+            color: red;
+            text-decoration: underline;
+            border: none;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            color: darkred;
+        }
+        img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Gestión de Tareas</h1>
+
+<!-- Imagen debajo del título -->
+<img src="/images/tarea.png" alt="Imagen de tareas">
+
+<div>
+    <a href="/tasks/create">Crear Nueva Tarea</a>
+</div>
+
+<h2>Tareas:</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.name}"></td>
+        <td th:text="${task.description}"></td>
+        <td>
+                <span th:text="${task.completed ? 'Completada' : 'Pendiente'}"
+                      th:classappend="${task.completed ? 'completed' : 'pending'}"></span>
+        </td>
+        <td>
+            <!-- Botón para cambiar estado -->
+            <form th:action="@{/tasks/{id}/updateStatus(id=${task.id})}" method="POST" style="display:inline;">
+                <button type="submit" th:text="${task.completed ? 'Marcar como Pendiente' : 'Marcar como Completada'}"></button>
+            </form>
+            <!-- Enlace para eliminar tarea -->
+            <form th:action="@{/tasks/{id}/delete(id=${task.id})}" method="POST" style="display:inline;">
+                <button type="submit" class="delete-btn">Eliminar</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

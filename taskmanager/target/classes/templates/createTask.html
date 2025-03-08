@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Nueva Tarea</title>
+  <img src="/images/nueva_tarea.png" alt="Imagen de tareas" style="display:block; margin: 20px auto; max-width: 100%; height: auto;">
+
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f4f4f9;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    form {
+        width: 60%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+    label {
+        font-size: 16px;
+        margin-bottom: 8px;
+        display: block;
+    }
+    input, textarea, button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Crear Nueva Tarea</h1>
+
+<form th:action="@{/tasks}" th:object="${task}" method="POST">
+  <label for="name">Nombre de la Tarea:</label>
+  <input type="text" id="name" th:field="*{name}" required/><br><br>
+
+  <label for="description">Descripción:</label>
+  <textarea id="description" th:field="*{description}" required></textarea><br><br>
+
+  <label for="completed">Completada:</label>
+  <input type="checkbox" id="completed" th:field="*{completed}"/><br><br>
+
+  <button type="submit">Crear Tarea</button>
+</form>
+
+<a href="/tasks">Volver a la lista de tareas</a>
+
+</body>
+</html>
