@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Tareas</title>
+    <title th:text="#{task.list.title}">Gestion de Tareas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,23 +65,28 @@
 </head>
 <body>
 
-<h1>Gestión de Tareas</h1>
+<!-- Enlaces para cambiar el idioma -->
+<a href="/change-language?lang=es">Español</a>
+<a href="/change-language?lang=en">English</a>
+
+
+<h1 th:text="#{task.list.title}">Gestión de Tareas</h1>
 
 <!-- Imagen debajo del título -->
 <img src="/images/tarea.png" alt="Imagen de tareas">
 
 <div>
-    <a href="/tasks/create">Crear Nueva Tarea</a>
+    <a href="/tasks/create" th:text="#{task.create.title}">Crear Nueva Tarea</a>
 </div>
 
-<h2>Tareas:</h2>
+<h2 th:text="#{task.list.tasks}">Tareas:</h2>
 <table>
     <thead>
     <tr>
-        <th>Nombre</th>
-        <th>Descripción</th>
-        <th>Estado</th>
-        <th>Acciones</th>
+        <th th:text="#{task.name.label}">Nombre</th>
+        <th th:text="#{task.description.label}">Descripción</th>
+        <th th:text="#{task.completed.label}">Estado</th>
+        <th th:text="#{task.actions}">Acciones</th>
     </tr>
     </thead>
     <tbody>
@@ -89,17 +94,19 @@
         <td th:text="${task.name}"></td>
         <td th:text="${task.description}"></td>
         <td>
-                <span th:text="${task.completed ? 'Completada' : 'Pendiente'}"
-                      th:classappend="${task.completed ? 'completed' : 'pending'}"></span>
+            <!-- Mostrar el estado (completado o pendiente) -->
+            <span th:text="#{task.completed.label}" th:if="${task.completed}" th:classappend="'completed'"></span>
+            <span th:text="#{task.pending.label}" th:if="${!task.completed}" th:classappend="'pending'"></span>
         </td>
         <td>
-            <!-- Botón para cambiar estado -->
+            <!-- Botón para cambiar el estado de la tarea -->
             <form th:action="@{/tasks/{id}/updateStatus(id=${task.id})}" method="POST" style="display:inline;">
-                <button type="submit" th:text="${task.completed ? 'Marcar como Pendiente' : 'Marcar como Completada'}"></button>
+                <button type="submit" th:text="#{task.updateStatus.button.marcarPendiente}" th:if="${task.completed}">Marcar como Pendiente</button>
+                <button type="submit" th:text="#{task.updateStatus.button.marcarCompletada}" th:if="${!task.completed}">Marcar como Completada</button>
             </form>
             <!-- Enlace para eliminar tarea -->
             <form th:action="@{/tasks/{id}/delete(id=${task.id})}" method="POST" style="display:inline;">
-                <button type="submit" class="delete-btn">Eliminar</button>
+                <button type="submit" class="delete-btn" th:text="#{task.delete.button}">Eliminar</button>
             </form>
         </td>
     </tr>

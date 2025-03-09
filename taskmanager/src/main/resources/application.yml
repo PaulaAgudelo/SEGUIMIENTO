@@ -7,3 +7,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+  messages:
+    basename: messages
+  mvc:
+    locale: es
+    locale-resolver: session

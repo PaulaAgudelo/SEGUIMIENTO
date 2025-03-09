@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crear Nueva Tarea</title>
+  <title th:text="#{task.create.title}">Crear Nueva Tarea</title>
   <img src="/images/nueva_tarea.png" alt="Imagen de tareas" style="display:block; margin: 20px auto; max-width: 100%; height: auto;">
 
   <style>
@@ -49,22 +49,22 @@
 </head>
 <body>
 
-<h1>Crear Nueva Tarea</h1>
+<h1 th:text="#{task.create.title}">Crear Nueva Tarea</h1>
 
 <form th:action="@{/tasks}" th:object="${task}" method="POST">
-  <label for="name">Nombre de la Tarea:</label>
+  <label for="name" th:text="#{task.name.label}">Nombre de la Tarea:</label>
   <input type="text" id="name" th:field="*{name}" required/><br><br>
 
-  <label for="description">Descripción:</label>
+  <label for="description" th:text="#{task.description.label}">Descripción:</label>
   <textarea id="description" th:field="*{description}" required></textarea><br><br>
 
-  <label for="completed">Completada:</label>
+  <label for="completed" th:text="#{task.completed.label}">Completada:</label>
   <input type="checkbox" id="completed" th:field="*{completed}"/><br><br>
 
-  <button type="submit">Crear Tarea</button>
+  <button type="submit" th:text="#{task.create.button}">Crear Tarea</button>
 </form>
 
-<a href="/tasks">Volver a la lista de tareas</a>
+<a href="/tasks" th:text="#{task.list.title}">Volver a la lista de tareas</a>
 
 </body>
 </html>
